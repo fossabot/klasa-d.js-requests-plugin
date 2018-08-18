@@ -1,4 +1,18 @@
 // This file has been modified by QuantumlyTangled
+
+const querystring = require('querystring');
+const FormData = require('form-data');
+const https = require('https');
+const { browser, UserAgent } = require('discord.js/src/util/Constants');
+const fetch = require('node-fetch');
+const { Events: { REQUEST_MADE } } = require('../util/CONSTANTS');
+
+if (https.Agent) {
+	var agent = new https.Agent({
+		keepAlive: true
+	});
+}
+
 /**
  * @license
  * Apache License
@@ -221,19 +235,6 @@
  * for the specific language governing permissions and
  * limitations under the License.
  */
-
-const querystring = require('querystring');
-const FormData = require('form-data');
-const https = require('https');
-const { browser, UserAgent } = require('discord.js/src/util/Constants');
-const fetch = require('node-fetch');
-const { Events: { REQUEST_MADE } } = require('../util/CONSTANTS');
-
-if (https.Agent) {
-	var agent = new https.Agent({
-		keepAlive: true
-	});
-}
 
 class APIRequest {
 

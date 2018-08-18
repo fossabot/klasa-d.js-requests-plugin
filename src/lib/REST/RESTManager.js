@@ -1,5 +1,14 @@
-
 // This file has been modified by QuantumlyTangled
+
+const EventEmitter = require('events');
+const handlers = require('./handlers');
+const APIRequest = require('./APIRequest');
+const routeBuilder = require('discord.js/src/rest/APIRouter');
+const { Error } = require('discord.js/src/errors');
+const { Endpoints } = require('discord.js/src/util/Constants');
+const { Collection } = require('discord.js');
+const { Events: { REQUEST_QUEUED } } = require('../util/CONSTANTS');
+
 /**
  * @license
  * Apache License
@@ -223,17 +232,10 @@
  * limitations under the License.
  */
 
-const handlers = require('./handlers');
-const APIRequest = require('./APIRequest');
-const routeBuilder = require('discord.js/src/rest/APIRouter');
-const { Error } = require('discord.js/src/errors');
-const { Endpoints } = require('discord.js/src/util/Constants');
-const { Collection } = require('discord.js');
-const { Events: { REQUEST_QUEUED } } = require('../util/CONSTANTS');
-
-class RESTManager {
+class RESTManager extends EventEmitter {
 
 	constructor(client, tokenPrefix = 'Bot') {
+		super();
 		this.client = client;
 		this.handlers = new Collection();
 		this.globallyRateLimited = false;

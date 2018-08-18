@@ -1,4 +1,15 @@
 // This file has been modified by QuantumlyTangled
+
+const DiscordAPIError = require('discord.js/src/rest/DiscordAPIError');
+const { browser } = require('discord.js/src/util/Constants');
+const { Events: { RATE_LIMIT } } = require('../../util/CONSTANTS');
+
+function parseResponse(res) {
+	if (res.headers.get('content-type').startsWith('application/json')) return res.json();
+	if (browser) return res.blob();
+	return res.buffer();
+}
+
 /**
  * @license
  * Apache License
@@ -222,15 +233,6 @@
  * limitations under the License.
  */
 
-const DiscordAPIError = require('discord.js/src/rest/DiscordAPIError');
-const { browser } = require('discord.js/src/util/Constants');
-const { Events: { RATE_LIMIT } } = require('../../util/CONSTANTS');
-
-function parseResponse(res) {
-	if (res.headers.get('content-type').startsWith('application/json')) return res.json();
-	if (browser) return res.blob();
-	return res.buffer();
-}
 
 class RequestHandler {
 
