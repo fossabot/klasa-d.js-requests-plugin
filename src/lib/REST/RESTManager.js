@@ -1,9 +1,10 @@
-const handlers = require('discord.js/src/rest/handlers');
-const APIRequest = require('discord.js/src/rest/APIRequest');
+const handlers = require('./handlers');
+const APIRequest = require('./APIRequest');
 const routeBuilder = require('discord.js/src/rest/APIRouter');
 const { Error } = require('discord.js/src/errors');
 const { Endpoints } = require('discord.js/src/util/Constants');
 const { Collection } = require('discord.js');
+const { Events: { REQUEST_QUEUED } } = require('../util/CONSTANTS');
 
 class RESTManager {
 
@@ -63,8 +64,8 @@ class RESTManager {
 			this.handlers.set(apiRequest.route, handler);
 		}
 
-		if (this.client.listenerCount('REQUEST_SENT')) {
-			this.client.emit('REQUEST_SENT', {
+		if (this.client.listenerCount(REQUEST_QUEUED)) {
+			this.client.emit(REQUEST_QUEUED, {
 				handler,
 				apiRequest,
 				input: {

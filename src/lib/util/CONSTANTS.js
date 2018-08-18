@@ -46,5 +46,6 @@ exports.Events = {
 	ERROR: 'error',
 	WARN: 'warn',
 	DEBUG: 'debug',
-	REQUEST_SENT: 'requestSent'
+	REQUEST_QUEUED: 'requestQueued',
+	REQUEST_MADE: 'requestMade'
 };
